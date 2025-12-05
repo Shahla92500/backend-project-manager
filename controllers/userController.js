@@ -2,7 +2,7 @@ const User = require("../models/User");
 const jwt = require('jsonwebtoken');
 
 const secret = process.env.JWT_SECRET;
-const expiration = '4h'; // Token will be valid for4 hours
+const expiration = '24h'; // Token will be valid for4 hours
 
 async function getAllUsers(req, res) {
   console.log(req.user);
