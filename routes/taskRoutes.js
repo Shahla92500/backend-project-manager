@@ -2,38 +2,41 @@
 const express = require("express");
 const { authMiddleware } = require("../middlewares/auth");
 const Task = require("../models/Task");
-const {getAllTasks,
-      createTask
+const { getAllTasksByProject,
+        createTask,
+        getTasksByIdByProject,
+        updateTask,
+        deleteTaskOfProject
       } = require('../controllers/taskController')
-const taskRouter = express.Router();
+const taskRouter = express.Router({ mergeParams: true }); //merge: true=> pass parent route params into the child router
 
 /**
  * GET /api/tasks
  */// Tasks all rotes in this router
 taskRouter.use(authMiddleware);
 
-taskRouter.get("/", authMiddleware, getAllTasks)
+taskRouter.get("/", authMiddleware, getAllTasksByProject)
 /** 
- * GET /api/projects/:projectId
+ * GET /api/projects/:taskId
  */
-// taskRouter.get("/:projectId", authMiddleware, getProjectsById)
+taskRouter.get("/:taskId", authMiddleware, getTasksByIdByProject)
 
 // /**
-//  * POST /api/projects
+//  * POST /projects/:projectId/tasks
 //  */
 taskRouter.post("/", authMiddleware, createTask)
 
 
-// /**
-//  * PUT /api/projects/projectId
-//  */
-// taskRouter.put("/:projectId", authMiddleware, updateProject)
+/**
+ * PUT /api/projects/:projectId/tasks/:tasksId
+ */
+taskRouter.put("/:taskId", authMiddleware, updateTask)
 
-// /**
-//  * DELETE /api/projects/projectId
-//  */
-// taskRouter.delete("/:projectId", authMiddleware,deleteProject)
+/**
+ * DELETE /api/projects/projectId
+ */
+taskRouter.delete("/:taskId", authMiddleware,deleteTaskOfProject)
 
  
 
-module.exports = projectRouter;
+module.exports = taskRouter;

@@ -1,12 +1,10 @@
 const jwt = require("jsonwebtoken");
-
 const secret = process.env.JWT_SECRET;
 const expiration = "24h";
 
 function authMiddleware(req, res, next) {
   // Allows token to be sent via req.body, req.query, or headers
   let token = req.body?.token || req.query?.token || req.headers?.authorization;
-  
   
   // We split the token string into an array and return actual token
   if (req.headers.authorization) {

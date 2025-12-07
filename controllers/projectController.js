@@ -8,7 +8,7 @@ const expiration = '4h'; // Token will be valid for4 hours
 async function getAllProjects(req,res) {
     try {
         if(!req.user){
-            return res.status(401).json({message: 'ou must be logged in to see this!'})
+            return res.status(401).json({message: 'you must be logged in to see this!'})
         }
 
         const projects = await Project.find({user: req.user._id})
@@ -33,12 +33,13 @@ async function getProjectsById(req,res) {
         .json({ message: `Project with id: ${projectId} not found!` });
     }
     // Authorization
-    console.log(req.user._id);
-    console.log(project.user);
-    
+ 
     if (project.user.toString() !== req.user._id) {
       return res.status(403).json({ message: "User is not authorized!" });
     }
+    console.log("id in parameter",project.user.toString());
+    console.log("project found in response",project);
+   
     return res.json(project);
   } catch (error) {
     console.error(error);

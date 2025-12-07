@@ -44,11 +44,12 @@ console
 
 /**
  * 
- * Login User
+ * Login User: POST /api/users/login
  */
 async function loginUser(req, res) {
   try {
-    const { email, password } = req.body;
+        console.log("after try:" , req.body);
+    const { email, password } = req.body;   
 
     // Check if user doesn't exist
     const dbUser = await User.findOne({ email: email });
